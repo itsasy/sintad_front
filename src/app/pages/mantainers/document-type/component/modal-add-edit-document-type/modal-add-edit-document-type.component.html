@@ -1,0 +1,28 @@
+<h2 class="title_modal" mat-dialog-title>
+	{{ data.type === "add" ? "Agregar" : "Editar" }} Tipo de Documento
+</h2>
+<app-loader *ngIf="loading"></app-loader>
+<div class="container_body_form" [formGroup]="form">
+	<mat-form-field appearance="outline">
+		<mat-label>Código:</mat-label>
+		<input formControlName="codigo" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+	<mat-form-field appearance="outline">
+		<mat-label>Nombre:</mat-label>
+		<input formControlName="nombre" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+	<mat-form-field appearance="outline">
+		<mat-label>Descripción:</mat-label>
+		<input formControlName="descripcion" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+	<button mat-flat-button color="primary" [disabled]="!form.valid" (click)="saveDocumentType()" *ngIf="data.type === 'add'">
+		Guardar
+	</button>
+	<button mat-flat-button color="primary" [disabled]="!form.valid" (click)="updateDocumentType()" *ngIf="data.type === 'edit'">
+		Editar
+	</button>
+	<button mat-flat-button mat-dialog-close>Cerrar</button>
+</div>

@@ -1,0 +1,60 @@
+<h2 class="title_modal" mat-dialog-title>
+	{{ data.type === "add" ? "Agregar" : "Editar" }} Entidad
+</h2>
+<app-loader *ngIf="loading"></app-loader>
+<div class="container_body_form" [formGroup]="form">
+	<mat-form-field appearance="outline">
+		<mat-label>Tipo Documento</mat-label>
+		<mat-select placeholder="Seleccionar Tipo Documento" formControlName="idTipoDocumento">
+			<app-search-select-custom (textSearch)="filterDocuments($event)" [enableBanner]="listDocumentTypes.length == 0">
+			</app-search-select-custom>
+			<mat-option *ngFor="let dt of listDocumentTypes" [value]="dt.id">
+				{{ dt.nombre }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field  appearance="outline">
+		<mat-label>Nro. Documento:</mat-label>
+		<input  formControlName="nroDocumento" matInput type="text" minlength="8" maxlength="25"  class="w-200" />
+	</mat-form-field>
+
+	<mat-form-field appearance="outline">
+		<mat-label>Tipo Contribuyente</mat-label>
+		<mat-select placeholder="Seleccionar Tipo Contribuyente" formControlName="idTipoContribuyente">
+			<app-search-select-custom (textSearch)="filterContributors($event)" [enableBanner]="listContributorTypes.length == 0">
+			</app-search-select-custom>
+			<mat-option *ngFor="let ct of listContributorTypes" [value]="ct.id">
+				{{ ct.nombre }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field appearance="outline">
+		<mat-label>Razon Social:</mat-label>
+		<input formControlName="razonSocial" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+	<mat-form-field appearance="outline">
+		<mat-label>Nombre Comercial:</mat-label>
+		<input formControlName="nombreComercial" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+    <mat-form-field appearance="outline">
+		<mat-label>Direccion:</mat-label>
+		<input formControlName="direccion" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+    <mat-form-field appearance="outline">
+		<mat-label>Teléfono:</mat-label>
+		<input formControlName="telefono" matInput type="text" class="w-200" />
+	</mat-form-field>
+
+	<button mat-flat-button color="primary" [disabled]="!form.valid" (click)="saveEntity()" *ngIf="data.type === 'add'">
+		Guardar
+	</button>
+	<button mat-flat-button color="primary" [disabled]="!form.valid" (click)="updateEntity()" *ngIf="data.type === 'edit'">
+		Editar
+	</button>
+	<button mat-flat-button mat-dialog-close>Cerrar</button>
+</div>
